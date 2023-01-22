@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS do projeto que está dentro da pasta STATIC/CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <!-- Ícone da página -->
+    <link rel="icon" href="{{ url_for('static', filename= 'favicon.png') }}">
+    <!-- BootStrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>Atualizar Usuário</title>
+</head>
+<body>
+  <div>
+    <h1>Acesso Administrador</h1>
+  </div>
+
+  <div class="card text-bg-dark mb-3">
+    <form action="/atualizaravaliacao/{{ avaliacao[0] }}" method="POST" id="form-cadastrar">
+      <div class="card-header"><strong>Atualizar Avaliação</strong>
+        <div class="card-body">
+          <p class="card-text">
+            <div class="form-check">
+              <label for="nome">Nome</label>
+              <input type="text" class="form-control" id="nome" name="nome" value='{{ avaliacao[1] }}' disabled=""> <!-- "required" faz a verificação se o campo foi preenchido -->
+            </div>
+            <br>
+            <div class="form-check">
+              <label for="nome">Hora da Avaliação</label>
+              <input type="text" class="form-control" id="hora_avaliacao" name="hora_avaliacao" style="width: 15rem;" value='{{ avaliacao[2] }}' disabled=""> <!-- "required" faz a verificação se o campo foi preenchido -->
+            </div>
+            <br>
+            <div class="form-check">
+              <label for="nome">Disicplina</label>
+              <input type="text" class="form-control" id="senha" name="senha" style="width: 15rem;" value='{{ avaliacao[3] }}' disabled=""> <!-- "required" faz a verificação se o campo foi preenchido -->
+            </div>
+            <br>
+            <div class="form-check">
+              <label for="nome">Questão 01</label>
+              <select class="form-select" aria-label="Default select example" style="width: 15rem;" id="nota1" name="nota1">
+                <option selected id="nota1" name="nota1" value='{{ avaliacao[4] }}'>{{ avaliacao[4] }}</option>
+                <option  id="nota1" name="nota1" value="Certo">Certo</option>
+                <option  id="nota1" name="nota1" value="Errado">Errado</option>
+              </select>
+            </div>
+            <br>
+            <div class="form-check">
+              <label for="nome">Questão 02</label>
+              <select class="form-select" aria-label="Default select example" style="width: 15rem;" id="nota2" name="nota2">
+                <option selected id="nota2" name="nota2" value='{{ avaliacao[4] }}'>{{ avaliacao[5] }}</option>
+                <option  id="nota2" name="nota2" value="Certo">Certo</option>
+                <option  id="nota2" name="nota2" value="Errado">Errado</option>
+              </select>
+            </div>
+            <br>
+            <div class="form-check">
+              <label for="nome">Nota Final</label>
+              <input type="text" class="form-control" id="nota_final" name="nota_final" style="width: 15rem;" value='{{ avaliacao[6] }}' disabled=""> <!-- "required" faz a verificação se o campo foi preenchido -->
+            </div>
+          </p>
+        </div>
+      </div>
+    </div>
+        <div class="bts">
+          <div>
+            <button type="submit" class="btn btn-dark" form="form-cadastrar">Atualizar</button>
+          </div>
+          <div>
+            <a href="/pageadmin" class="btn btn-dark">Volta</a>
+        </div>
+    </form>
+  </div>
+    <!-- Script de JavaScript para Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS do projeto que está dentro da pasta STATIC/CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <!-- Ícone da página -->
+    <link rel="icon" href="{{ url_for('static', filename= 'favicon.png') }}">
+    <!-- BootStrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>Acesso Administrador</title>
+</head>
+<body>
+  <!-- TELA DE USUÁRIOS CADASTRADOS -->
+  <div>
+    <h1 style="text-align:center">Usuários cadastrados</h1>
+  </div>   
+  <div class="listagem">
+    <div class="aluno_lista">
+      <table class="table table-hover table-dark">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nome Completo</th>
+            <th scope="col">Usuário</th>
+            <th scope="col">Senha</th>
+            <th scope="col">Tipo</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+          <tbody>
+            <div>
+                {% for usuario in lista_alunos %}
+                    <tr>
+                        <th scope="row">{{ usuario[0] }} </th> <!-- ID -->
+                        <td>{{ usuario[1] }}</td> <!-- Nome Completo -->
+                        <td>{{ usuario[2]}}</td> <!-- Usuário -->
+                        <td>{{ usuario[3] }}</td> <!-- Senha -->
+                        <td>{{ usuario[4] }}</td> <!-- Senha -->
+                        <td><a href='/atualizar/{{ usuario[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
+                        <td><a href='/deletar/{{ usuario[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
+                    </tr>
+                {% endfor %}
+            </div>
+          </tbody>
+        </table>
+      <div class="bts">
+        <div>
+          <a href="/cadastrousuario" class="btn btn-dark">Novo Usuário</a>
+        </div>
+        <div>
+          <a href="/" class="btn btn-dark">Encerrar sessão</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <!-- TELA DE HISTÓRICO DE AVALIAÇÕES -->
+  <div>
+    <h1 style="text-align:center">Histórico de Avaliações</h1>
+  </div>   
+  <div class="listagem">
+    <div class="aluno_lista">
+      <table class="table table-hover table-dark">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Aluno</th>
+            <th scope="col">Hora da Avaliação</th>
+            <th scope="col">Disciplina</th>
+            <th scope="col">Questão 01</th>
+            <th scope="col">Questão 02</th>
+            <th scope="col">Nota Final</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <div>
+              {% for avaliacao in lista_avaliacoes %}
+                  <tr>
+                      <th scope="row">{{ avaliacao[1] }} </th> <!-- Aluno -->
+                      <td>{{ avaliacao[2] }}</td> <!-- Hora da Avaliação -->
+                      <td>{{ avaliacao[3] }}</td> <!-- Disciplina -->
+
+                       <!-- Questão 01 -->
+                      <td>
+                        {% if avaliacao[4] == 'Certo' %}
+                        <div class="text-center">
+                          <img src="{{ url_for('static', filename='certo.jpg') }}" class="rounded" height="20" width="20">
+                        </div>
+                        {% else %}
+                        <div class="text-center">
+                          <img src="{{ url_for('static', filename='errado.jpg') }}" class="rounded" height="20" width="20">
+                        </div>
+                        {% endif %}
+                      </td>
+
+                       <!-- Questão 02 -->
+                       <td>
+                        {% if avaliacao[5] == 'Certo' %}
+                        <div class="text-center">
+                          <img src="{{ url_for('static', filename='certo.jpg') }}" class="rounded" height="20" width="20">
+                        </div>
+                        {% else %}
+                        <div class="text-center">
+                          <img src="{{ url_for('static', filename='errado.jpg') }}" class="rounded" height="20" width="20">
+                        </div>
+                        {% endif %}
+                      </td>
+
+                      <td>{{ avaliacao[6] }}</td> <!-- Nota Final -->
+                      <td><a href='/atualizaravaliacao/{{ avaliacao[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
+                      <td><a href='/deletaravaliacao/{{ avaliacao[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
+                  </tr>
+              {% endfor %}
+          </div>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="bts">
+    <div>
+      <a href="/" class="btn btn-dark">Encerrar sessão</a>
+    </div>
+  </div>
+  <hr>
+  
+  <!-- TELA DE PROVAS CADASTRADAS -->
+  <div>
+    <h1 style="text-align:center">Provas Cadastradas</h1>
+  </div>   
+  <div class="listagem">
+    <div class="aluno_lista">
+      <table class="table table-hover table-dark">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Disciplina</th>
+            <th scope="col">Questão</th>
+            <th scope="col">Alternativa A</th>
+            <th scope="col">Alternativa B</th>
+            <th scope="col">Alternativa C</th>
+            <th scope="col">Alternativa D</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <div>
+              {% for prova in lista_provas %}
+                  <tr>
+                      <th scope="row">{{ prova[1] }}</th> <!-- Disciplina -->
+                      <td>{{ prova[2] }}</td> <!-- Questão -->
+                      {% if prova[3] == prova[7] %}
+                        <td><font color="#32CD32">{{ prova[3] }}</font></td> <!-- Questão -->
+                      {% else %}
+                        <td>{{ prova[3] }}</td> <!-- Questão -->
+                      {% endif %}
+
+                      {% if prova[4] == prova[7] %}
+                        <td><font color="#32CD32">{{ prova[4] }}</font></td> <!-- Questão -->
+                      {% else %}
+                        <td>{{ prova[4] }}</td> <!-- Questão -->
+                      {% endif %}
+
+                      {% if prova[5] == prova[7] %}
+                        <td><font color="#32CD32">{{ prova[5] }}</font></td> <!-- Questão -->
+                      {% else %}
+                        <td>{{ prova[5] }}</td> <!-- Questão -->
+                      {% endif %}
+
+                      {% if prova[6] == prova[7] %}
+                        <td><font color="#32CD32">{{ prova[6] }}</font></td> <!-- Questão -->
+                      {% else %}
+                        <td>{{ prova[6] }}</td> <!-- Questão -->
+                      {% endif %}
+
+                      <td><a href='/atualizaravaliacao/{{ prova[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
+                      <td><a href='/deletaravaliacao/{{ prova[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
+                  </tr>
+
+                  <tr>
+                    <th scope="row">{{ prova[1] }}</th> <!-- Disciplina -->
+                    <td>{{ prova[8] }}</td> <!-- Questão -->
+                    {% if prova[9] == prova[13] %}
+                      <td><font color="#32CD32">{{ prova[9] }}</font></td> <!-- Questão -->
+                    {% else %}
+                      <td>{{ prova[9] }}</td> <!-- Questão -->
+                    {% endif %}
+
+                    {% if prova[10] == prova[13] %}
+                      <td><font color="#32CD32">{{ prova[10] }}</font></td> <!-- Questão -->
+                    {% else %}
+                      <td>{{ prova[10] }}</td> <!-- Questão -->
+                    {% endif %}
+
+                    {% if prova[11] == prova[13] %}
+                      <td><font color="#32CD32">{{ prova[11] }}</font></td> <!-- Questão -->
+                    {% else %}
+                      <td>{{ prova[11] }}</td> <!-- Questão -->
+                    {% endif %}
+
+                    {% if prova[12] == prova[13] %}
+                      <td><font color="#32CD32">{{ prova[12] }}</font></td> <!-- Questão -->
+                    {% else %}
+                      <td>{{ prova[12] }}</td> <!-- Questão -->
+                    {% endif %}
+
+                    <td><a href='/atualizaravaliacao/{{ prova[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
+                    <td><a href='/deletaravaliacao/{{ prova[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
+                </tr>
+              {% endfor %}
+          </div>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="bts">
+    <div>
+      <a href="/" class="btn btn-dark">Encerrar sessão</a>
+    </div>
+  </div>
+  <br>
+  <!-- Script de JavaScript para Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+</body>
+</html>
