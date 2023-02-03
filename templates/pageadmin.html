@@ -40,8 +40,8 @@
                         <td>{{ usuario[2]}}</td> <!-- Usuário -->
                         <td>{{ usuario[3] }}</td> <!-- Senha -->
                         <td>{{ usuario[4] }}</td> <!-- Senha -->
-                        <td><a href='/atualizar/{{ usuario[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
-                        <td><a href='/deletar/{{ usuario[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
+                        <td><a href='/atualizarusuario/{{ usuario[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
+                        <td><a href='/deletarusuario/{{ usuario[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
                     </tr>
                 {% endfor %}
             </div>
@@ -131,94 +131,99 @@
   
   <!-- TELA DE PROVAS CADASTRADAS -->
   <div>
-    <h1 style="text-align:center">Provas Cadastradas</h1>
-  </div>   
-  <div class="listagem">
-    <div class="aluno_lista">
-      <table class="table table-hover table-dark">
-        <thead class="table-dark">
-          <tr>
-            <th scope="col">Disciplina</th>
-            <th scope="col">Questão</th>
-            <th scope="col">Alternativa A</th>
-            <th scope="col">Alternativa B</th>
-            <th scope="col">Alternativa C</th>
-            <th scope="col">Alternativa D</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <div>
-              {% for prova in lista_provas %}
-                  <tr>
+    <div>
+      <h1 style="text-align:center">Provas Cadastradas</h1>
+    </div>   
+    <div class="listagem">
+      <div class="aluno_lista">
+        <table class="table table-hover table-dark">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Disciplina</th>
+              <th scope="col">Questão</th>
+              <th scope="col">Alternativa A</th>
+              <th scope="col">Alternativa B</th>
+              <th scope="col">Alternativa C</th>
+              <th scope="col">Alternativa D</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <div>
+                {% for prova in lista_provas %}
+                    <tr>
+                        <th scope="row">{{ prova[1] }}</th> <!-- Disciplina -->
+                        <td>{{ prova[2] }}</td> <!-- Questão -->
+                        {% if prova[3] == prova[7] %}
+                          <td><font color="#32CD32">{{ prova[3] }}</font></td> <!-- Questão -->
+                        {% else %}
+                          <td>{{ prova[3] }}</td> <!-- Questão -->
+                        {% endif %}
+
+                        {% if prova[4] == prova[7] %}
+                          <td><font color="#32CD32">{{ prova[4] }}</font></td> <!-- Questão -->
+                        {% else %}
+                          <td>{{ prova[4] }}</td> <!-- Questão -->
+                        {% endif %}
+
+                        {% if prova[5] == prova[7] %}
+                          <td><font color="#32CD32">{{ prova[5] }}</font></td> <!-- Questão -->
+                        {% else %}
+                          <td>{{ prova[5] }}</td> <!-- Questão -->
+                        {% endif %}
+
+                        {% if prova[6] == prova[7] %}
+                          <td><font color="#32CD32">{{ prova[6] }}</font></td> <!-- Questão -->
+                        {% else %}
+                          <td>{{ prova[6] }}</td> <!-- Questão -->
+                        {% endif %}
+
+                        <td><a href='/atualizarprova/{{ prova[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
+                      <td><a href='/deletarprova/{{ prova[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
+                    </tr>
+
+                    <tr>
                       <th scope="row">{{ prova[1] }}</th> <!-- Disciplina -->
-                      <td>{{ prova[2] }}</td> <!-- Questão -->
-                      {% if prova[3] == prova[7] %}
-                        <td><font color="#32CD32">{{ prova[3] }}</font></td> <!-- Questão -->
+                      <td>{{ prova[8] }}</td> <!-- Questão -->
+                      {% if prova[9] == prova[13] %}
+                        <td><font color="#32CD32">{{ prova[9] }}</font></td> <!-- Questão -->
                       {% else %}
-                        <td>{{ prova[3] }}</td> <!-- Questão -->
+                        <td>{{ prova[9] }}</td> <!-- Questão -->
                       {% endif %}
 
-                      {% if prova[4] == prova[7] %}
-                        <td><font color="#32CD32">{{ prova[4] }}</font></td> <!-- Questão -->
+                      {% if prova[10] == prova[13] %}
+                        <td><font color="#32CD32">{{ prova[10] }}</font></td> <!-- Questão -->
                       {% else %}
-                        <td>{{ prova[4] }}</td> <!-- Questão -->
+                        <td>{{ prova[10] }}</td> <!-- Questão -->
                       {% endif %}
 
-                      {% if prova[5] == prova[7] %}
-                        <td><font color="#32CD32">{{ prova[5] }}</font></td> <!-- Questão -->
+                      {% if prova[11] == prova[13] %}
+                        <td><font color="#32CD32">{{ prova[11] }}</font></td> <!-- Questão -->
                       {% else %}
-                        <td>{{ prova[5] }}</td> <!-- Questão -->
+                        <td>{{ prova[11] }}</td> <!-- Questão -->
                       {% endif %}
 
-                      {% if prova[6] == prova[7] %}
-                        <td><font color="#32CD32">{{ prova[6] }}</font></td> <!-- Questão -->
+                      {% if prova[12] == prova[13] %}
+                        <td><font color="#32CD32">{{ prova[12] }}</font></td> <!-- Questão -->
                       {% else %}
-                        <td>{{ prova[6] }}</td> <!-- Questão -->
+                        <td>{{ prova[12] }}</td> <!-- Questão -->
                       {% endif %}
 
-                      <td><a href='/atualizaravaliacao/{{ prova[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
-                      <td><a href='/deletaravaliacao/{{ prova[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
+                      <td><a href='/atualizarprova/{{ prova[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
+                      <td><a href='/deletarprova/{{ prova[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
                   </tr>
-
-                  <tr>
-                    <th scope="row">{{ prova[1] }}</th> <!-- Disciplina -->
-                    <td>{{ prova[8] }}</td> <!-- Questão -->
-                    {% if prova[9] == prova[13] %}
-                      <td><font color="#32CD32">{{ prova[9] }}</font></td> <!-- Questão -->
-                    {% else %}
-                      <td>{{ prova[9] }}</td> <!-- Questão -->
-                    {% endif %}
-
-                    {% if prova[10] == prova[13] %}
-                      <td><font color="#32CD32">{{ prova[10] }}</font></td> <!-- Questão -->
-                    {% else %}
-                      <td>{{ prova[10] }}</td> <!-- Questão -->
-                    {% endif %}
-
-                    {% if prova[11] == prova[13] %}
-                      <td><font color="#32CD32">{{ prova[11] }}</font></td> <!-- Questão -->
-                    {% else %}
-                      <td>{{ prova[11] }}</td> <!-- Questão -->
-                    {% endif %}
-
-                    {% if prova[12] == prova[13] %}
-                      <td><font color="#32CD32">{{ prova[12] }}</font></td> <!-- Questão -->
-                    {% else %}
-                      <td>{{ prova[12] }}</td> <!-- Questão -->
-                    {% endif %}
-
-                    <td><a href='/atualizaravaliacao/{{ prova[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
-                    <td><a href='/deletaravaliacao/{{ prova[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
-                </tr>
-              {% endfor %}
-          </div>
-        </tbody>
-      </table>
+                {% endfor %}
+            </div>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div class="bts">
+    <div>
+      <a href="/cadastrarprova" class="btn btn-dark">Nova Prova</a>
+    </div>
     <div>
       <a href="/" class="btn btn-dark">Encerrar sessão</a>
     </div>

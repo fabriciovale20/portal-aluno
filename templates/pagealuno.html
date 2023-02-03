@@ -29,8 +29,9 @@
                 <div class="form-check">
                   <label for="nome">Selecione abaixo a disciplina que deseja realizar à avaliação:</label>
                   <select class="form-select" aria-label="Default select example" style="width: 15rem;" id="prova" name="prova">
-                    <option  id="prova" name="prova" value="Programação Web I">Programação Web I</option>
-                    <option  id="prova" name="prova" value="Gerência de Projetos">Gerência de Projetos</option>
+                    {% for prova in provas_disponiveis %}
+                      <option  id="prova" name="prova" value="{{ prova[1] }}">{{ prova[1] }}</option>
+                    {% endfor %}
                   </select>
                   <br>
                   <div class="bts"></div>
@@ -41,7 +42,7 @@
                     </div>
                     <div>
                       <p>
-                        <td><a href='/atualizar/{{ id_aluno }}' class="btn btn-info">Alterar cadastro</a></td> <!-- Botão de Alterar Senha -->
+                        <td><a href='/atualizarusuario/{{ id_aluno }}' class="btn btn-info">Alterar cadastro</a></td> <!-- Botão de Alterar Senha -->
                       </p>
                     </div>
                     <div>
