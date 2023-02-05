@@ -27,3 +27,11 @@ button {
     width: 100%;
     justify-content: center;
 }
+
+.links { 
+    width: 300px; 
+    margin-left: auto;
+    margin-right: auto; 
+    display: flex;
+    justify-content: space-around;
+}

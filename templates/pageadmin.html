@@ -26,6 +26,8 @@
             <th scope="col">Nome Completo</th>
             <th scope="col">Usuário</th>
             <th scope="col">Senha</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Data do Cadastro</th>
             <th scope="col">Tipo</th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -39,7 +41,9 @@
                         <td>{{ usuario[1] }}</td> <!-- Nome Completo -->
                         <td>{{ usuario[2]}}</td> <!-- Usuário -->
                         <td>{{ usuario[3] }}</td> <!-- Senha -->
-                        <td>{{ usuario[4] }}</td> <!-- Senha -->
+                        <td>{{ usuario[4] }}</td> <!-- E-mail -->
+                        <td>{{ usuario[5] }}</td> <!-- Data de Registro -->
+                        <td>{{ usuario[6] }}</td> <!-- Tipo -->
                         <td><a href='/atualizarusuario/{{ usuario[0] }}' class="btn btn-outline-primary">Alterar</a></td> <!-- Botão de Deletar Registro -->
                         <td><a href='/deletarusuario/{{ usuario[0] }}' class="btn btn-outline-danger">Deletar</a></td> <!-- Botão de Deletar Registro -->
                     </tr>
