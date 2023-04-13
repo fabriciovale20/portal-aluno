@@ -4,13 +4,26 @@ import mysql.connector
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
+import psycopg2
+import keybd as key
 
 app = Flask(__name__) # Inicialização da Aplicação WEB
-conexao = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='passwordsql',
-    database='app_uniasselvi'
+
+# BANCO DE DADOS MYSQL LOCAL
+# conexao = mysql.connector.connect(
+#     host='localhost',
+#     user='root',
+#     password='passwordsql',
+#     database='app_uniasselvi'
+# )
+
+# BANCO DE DADOS POSTGRESQL
+conexao = psycopg2.connect(
+    host = key.KEYHOST,
+    port = key.KEYPORT,
+    user = key.KEYUSER,
+    password = key.KEYPASSWORD,
+    database = key.KEYDATABASE,
 )
 
 cursor = conexao.cursor()
