@@ -306,7 +306,7 @@ def atualizaravaliacao(id):
 
         # Atualizando informações no Banco de Dados
         print('Atualizando...')
-        comando = f'''UPDATE avaliacao SET nota1 = "{att_nota1}", nota2 = "{att_nota2}", nota_final = "{nota_final}" WHERE id = {id};'''
+        comando = f"""UPDATE avaliacao SET nota1 = '{att_nota1}', nota2 = '{att_nota2}', nota_final = '{nota_final}' WHERE id = {id};"""
         cursor.execute(comando)
         conexao.commit()
         
@@ -371,8 +371,8 @@ def finalizarprova():
         hora = datetime.today().strftime('%d/%m/%Y %H:%M:%S')
 
         # Adicionando as variáveis a Banco de Dados Avaliação
-        comando = f'''INSERT INTO avaliacao (aluno, hora_avaliacao, disciplina, nota1, nota2, nota_final)
-            VALUES ("{nome_aluno}", "{hora}", "{disciplina_selecionada}", "{nota1}", "{nota2}", "{nota_final}");'''
+        comando = f"""INSERT INTO avaliacao (aluno, hora_avaliacao, disciplina, nota1, nota2, nota_final)
+            VALUES ('{nome_aluno}', '{hora}', '{disciplina_selecionada}', '{nota1}', '{nota2}', '{nota_final}');"""
         cursor.execute(comando)
         conexao.commit()
 
@@ -404,9 +404,9 @@ def cadastrarprova():
 
         # Atualizando informações no Banco de Dados
         print('Cadastrando...')
-        comando = f'''INSERT INTO prova (disciplina, questao1, a1, b1, c1, d1, resposta1, questao2, a2, b2, c2, d2, resposta2)
-            VALUES ("{disciplina}", "{questao1}", "{alternativa_a1}", "{alternativa_b1}", "{alternativa_c1}", "{alternativa_d1}", "{gabarito1}",
-            "{questao2}", "{alternativa_a2}", "{alternativa_b2}", "{alternativa_c2}", "{alternativa_d2}", "{gabarito2}");'''
+        comando = f"""INSERT INTO prova (disciplina, questao1, a1, b1, c1, d1, resposta1, questao2, a2, b2, c2, d2, resposta2)
+            VALUES ('{disciplina}', '{questao1}', '{alternativa_a1}', '{alternativa_b1}', '{alternativa_c1}', '{alternativa_d1}', '{gabarito1}',
+            '{questao2}', '{alternativa_a2}', '{alternativa_b2}', '{alternativa_c2}', '{alternativa_d2}', '{gabarito2}');"""
         cursor.execute(comando)
         conexao.commit()
 
@@ -446,10 +446,10 @@ def atualizarprova(id):
 
         # Atualizando informações no Banco de Dados
         print('Atualizando...')
-        comando = f'''UPDATE prova SET disciplina = "{att_disciplina}",
-        questao1 = "{att_questao1}", a1 = "{att_alternativa_a1}", b1 = "{att_alternativa_b1}", c1 = "{att_alternativa_c1}", d1 = "{att_alternativa_d1}", resposta1 = "{att_gabarito1}", 
-        questao2 = "{att_questao2}", a2 = "{att_alternativa_a2}", b2 = "{att_alternativa_b2}", c2 = "{att_alternativa_c2}", d2 = "{att_alternativa_d2}", resposta2 = "{att_gabarito2}"
-        WHERE id = {id};'''
+        comando = f"""UPDATE prova SET disciplina = '{att_disciplina}',
+        questao1 = '{att_questao1}', a1 = '{att_alternativa_a1}', b1 = '{att_alternativa_b1}', c1 = '{att_alternativa_c1}', d1 = '{att_alternativa_d1}', resposta1 = '{att_gabarito1}', 
+        questao2 = '{att_questao2}', a2 = '{att_alternativa_a2}', b2 = '{att_alternativa_b2}', c2 = '{att_alternativa_c2}', d2 = '{att_alternativa_d2}', resposta2 = '{att_gabarito2}'
+        WHERE id = {id};"""
         cursor.execute(comando)
         conexao.commit()
 
