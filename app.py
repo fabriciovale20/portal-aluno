@@ -134,9 +134,9 @@ def registrarse():
                     return render_template('registrarse.html', erro_email=erro_email)
 
         # Adicionando as variáveis a Classe Aluno
-        comando = f'''INSERT INTO aluno (nome, usuario, senha, email, dia_cadastro, tipo)
-            VALUES ("{nome_registrar}", "{usuario_registrar}", "{senha_registrar}", "{email_registrar}",
-            "{data_registro_registrar}","{tipo_registro}");'''
+        comando = f"""INSERT INTO aluno (nome, usuario, senha, email, dia_cadastro, tipo)
+            VALUES ('{nome_registrar}', '{usuario_registrar}', '{senha_registrar}', '{email_registrar}',
+            '{data_registro_registrar}','{tipo_registro}');"""
         cursor.execute(comando)
         conexao.commit()
 
@@ -212,8 +212,8 @@ def cadastrousuario():
         novo_tipo = request.form.get('tipo')
 
         # Adicionando as variáveis a Classe Aluno
-        comando = f'''INSERT INTO aluno (nome, usuario, senha, email, tipo)
-            VALUES ("{novo_nome}", "{novo_usuario}", "{nova_senha}", "{nova_email}", "{novo_tipo}");'''
+        comando = f"""INSERT INTO aluno (nome, usuario, senha, email, tipo)
+            VALUES ('{novo_nome}', '{novo_usuario}', '{nova_senha}', '{nova_email}', '{novo_tipo}');"""
         cursor.execute(comando)
         conexao.commit()
 
@@ -250,11 +250,11 @@ def atualizarusuario(id):
 
         # Atualizando informações no Banco de Dados
         print('Atualizando...')
-        comando = f'''UPDATE aluno SET nome = "{att_nome}", usuario = "{att_usuario}", senha = "{att_senha}", email = "{att_email}", tipo = "{att_tipo}" WHERE id = {id};'''
+        comando = f"""UPDATE aluno SET nome = '{att_nome}', usuario = '{att_usuario}', senha = '{att_senha}', email = '{att_email}', tipo = '{att_tipo}' WHERE id = {id};"""
         cursor.execute(comando)
         conexao.commit()
-
-        if tipo_aluno == 'Administrado':
+        
+        if tipo_aluno == 'Administrador':
             return render_template('pageadmin.html', lista_alunos=lista_alunos, lista_avaliacoes=lista_avaliacoes)
         else:
             home()
