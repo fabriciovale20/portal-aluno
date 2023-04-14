@@ -378,7 +378,7 @@ def finalizarprova():
 
     home()
 
-    return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, tipo_aluno=tipo_aluno)
+    return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, email_aluno=email_aluno, tipo_aluno=tipo_aluno, provas_disponiveis=provas_disponiveis)
 
 ####### PROVAS CADASTRADAS #######
 # CADASTRAR
