@@ -31,7 +31,7 @@ cursor = conexao.cursor()
 ####### PÁGINA LOGIN #######
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    global usuario, senha, id_aluno, nome_aluno, usuario_aluno, senha_aluno, email_aluno, tipo_aluno, lista_alunos, lista_avaliacoes, lista_provas, provas_disponiveis
+    global usuario, senha, id_aluno, nome_aluno, sexo_aluno, usuario_aluno, senha_aluno, email_aluno, tipo_aluno, lista_alunos, lista_avaliacoes, lista_provas, provas_disponiveis
     
     # Coletando usuário e senha preenchidos no formulário
     if request.method == 'POST':
@@ -65,20 +65,21 @@ def home():
     # Validação do Usuário e Senha inseridos na page Home
     if usuario != None and senha != None:
         for user in lista_alunos:
-            if user[2] == usuario and user[3] == senha:
+            if user[3] == usuario and user[4] == senha:
                 id_aluno = user[0]
                 nome_aluno = user[1]
-                usuario_aluno = user[2]
-                senha_aluno = user[3]
-                email_aluno = user[4]
-                tipo_aluno = user[6]
+                sexo_aluno = user[2]
+                usuario_aluno = user[3]
+                senha_aluno = user[4]
+                email_aluno = user[5]
+                tipo_aluno = user[7]
 
                 if tipo_aluno == 'Administrador': # Acesso adiministrador
                     return render_template('pageadmin.html', lista_alunos=lista_alunos, lista_avaliacoes=lista_avaliacoes, lista_provas=lista_provas)
                 else: # Caso o login for válido, será redirecionado para a página de aluno
                     # primeiro_nome = nome_aluno[:nome_aluno.find(' '):] # Para pegar apenas o primeiro nome do aluno
 
-                    return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, email_aluno=email_aluno, tipo_aluno=tipo_aluno, provas_disponiveis=provas_disponiveis)
+                    return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, sexo_aluno=sexo_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, email_aluno=email_aluno, tipo_aluno=tipo_aluno, provas_disponiveis=provas_disponiveis)
         else: # Caso o Usuário e Senha não possuam no Banco de Dados é retornado a mensagem de Login inválido
             incorreto = True
             msg = 'Login inválido, tente novamente!'
@@ -96,6 +97,7 @@ def registrarse():
 
     if request.method == 'POST':
         nome_registrar = request.form.get('nome')
+        sexo_registrar = request.form.get('sexo')
         usuario_registrar = request.form.get('usuario')
         senha_registrar = request.form.get('senha')
         confirmar_senha_registrar = request.form.get('confirmar_senha')
@@ -121,21 +123,21 @@ def registrarse():
         else:
             for user in lista_alunos:
             # Validando se o usuário já está sendo utilizado
-                if usuario_registrar == user[2]:
+                if usuario_registrar == user[3]:
                     erro_usuario = 'Usuário já utilizado'
                     print(f'Erro Usuário: {erro_usuario}')
 
                     return render_template('registrarse.html', erro_usuario=erro_usuario)
                 # Validando se o E-mail já está sendo utilizado
-                elif email_registrar in user[4]:
+                elif email_registrar in user[5]:
                     erro_email = 'E-mail já utilizado'
                     print(f'Erro E-mail: {erro_email}')
 
                     return render_template('registrarse.html', erro_email=erro_email)
 
         # Adicionando as variáveis a Classe Aluno
-        comando = f"""INSERT INTO aluno (nome, usuario, senha, email, dia_cadastro, tipo)
-            VALUES ('{nome_registrar}', '{usuario_registrar}', '{senha_registrar}', '{email_registrar}',
+        comando = f"""INSERT INTO aluno (nome, sexo, usuario, senha, email, dia_cadastro, tipo)
+            VALUES ('{nome_registrar}', '{sexo_registrar}','{usuario_registrar}', '{senha_registrar}', '{email_registrar}',
             '{data_registro_registrar}','{tipo_registro}');"""
         cursor.execute(comando)
         conexao.commit()
@@ -156,9 +158,9 @@ def esqueceusenha():
 
         # Validando se o E-mail que foi preenchido está cadastrado em algum usuário
         for buscar_senha in lista_alunos:
-            if recuperar_senha == buscar_senha[4]:
+            if recuperar_senha == buscar_senha[5]:
                 
-                senha_atual = buscar_senha[3]
+                senha_atual = buscar_senha[4]
                 nome_atual = buscar_senha[1]
 
                 # Corpo da mensagem do Em=mail
@@ -198,7 +200,7 @@ def pageadmin():
 def pagealuno():
     home()
 
-    return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, email_aluno=email_aluno, tipo_aluno=tipo_aluno, provas_disponiveis=provas_disponiveis)
+    return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, sexo_aluno=sexo_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, email_aluno=email_aluno, tipo_aluno=tipo_aluno, provas_disponiveis=provas_disponiveis)
 
 ####### USUÁRIO #######
 # CADASTRAR
@@ -206,14 +208,15 @@ def pagealuno():
 def cadastrousuario():
     if request.method == 'POST': # POST é quando o usuário solicita ao Banco de Dados que seja alterado alguma informação por meio da requisição do formulário
         novo_nome = request.form.get('nome')
+        novo_sexo = request.form.get('sexo')
         novo_usuario = request.form.get('usuario')
         nova_senha = request.form.get('senha')
         nova_email = request.form.get('email')
         novo_tipo = request.form.get('tipo')
 
         # Adicionando as variáveis a Classe Aluno
-        comando = f"""INSERT INTO aluno (nome, usuario, senha, email, tipo)
-            VALUES ('{novo_nome}', '{novo_usuario}', '{nova_senha}', '{nova_email}', '{novo_tipo}');"""
+        comando = f"""INSERT INTO aluno (nome, sexo, usuario, senha, email, tipo)
+            VALUES ('{novo_nome}', '{novo_sexo}', '{novo_usuario}', '{nova_senha}', '{nova_email}', '{novo_tipo}');"""
         cursor.execute(comando)
         conexao.commit()
 
@@ -239,6 +242,7 @@ def atualizarusuario(id):
     if request.method == 'POST': # POST é quando o usuário solicita ao Banco de Dados que seja alterado alguma informação por meio da requisição do formulário
 
         att_nome = request.form.get('nome')
+        att_sexo = request.form.get('sexo')
         att_usuario = request.form.get('usuario')
         att_senha = request.form.get('senha')
         att_email = request.form.get('email')
@@ -250,16 +254,14 @@ def atualizarusuario(id):
 
         # Atualizando informações no Banco de Dados
         print('Atualizando...')
-        comando = f"""UPDATE aluno SET nome = '{att_nome}', usuario = '{att_usuario}', senha = '{att_senha}', email = '{att_email}', tipo = '{att_tipo}' WHERE id = {id};"""
+        comando = f"""UPDATE aluno SET nome = '{att_nome}', sexo = '{att_sexo}', usuario = '{att_usuario}', senha = '{att_senha}', email = '{att_email}', tipo = '{att_tipo}' WHERE id = {id};"""
         cursor.execute(comando)
         conexao.commit()
         
         if tipo_aluno == 'Administrador':
-            return render_template('pageadmin.html', lista_alunos=lista_alunos, lista_avaliacoes=lista_avaliacoes)
+            return redirect('/pageadmin')
         else:
-            home()
-
-            return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, email_aluno=email_aluno, tipo_aluno=tipo_aluno, provas_disponiveis=provas_disponiveis)
+            return redirect('/pagealuno')
     else: # Caso o method for GET. GET é quando o usuário realiza apenas consulta (Query) no Banco de Dados
         if tipo_aluno == 'Administrador':
             return render_template('upgrade.html', aluno=aluno)

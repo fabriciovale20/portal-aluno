@@ -24,11 +24,19 @@
               </div>
               <br>
               <div class="form-check">
+                <label for="sexo">Sexo</label>
+                <select class="form-select" aria-label="Default select example" style="width: 15rem;" id="sexo" name="sexo">
+                  <option id="sexo" name="sexo" value="Masculino">Masculino</option>
+                  <option id="sexo" name="sexo" value="Feminino">Feminino</option>
+                </select>
+              </div>
+              <br>
+              <div class="form-check">
                 <label for="nome">Usuário</label>
                 <input type="text" class="form-control" id="usuario" name="usuario" style="width: 15rem;" required>
                 {% if erro_usuario %}
-                <font color="red">{{ erro_usuario }}</font>
-                <img src="{{ url_for('static', filename='errado.jpg') }}" class="rounded" height="15" width="15">
+                  <font color="red">{{ erro_usuario }}</font>
+                  <img src="{{ url_for('static', filename='errado.jpg') }}" class="rounded" height="15" width="15">
                 {% endif %}
               </div>
               <br>
@@ -36,8 +44,8 @@
                 <label for="nome">Senha</label>
                 <input type="password" class="form-control" id="senha" name="senha" style="width: 15rem;" required>
                 {% if erro_senha %}
-                <font color="red">{{ erro_senha }}</font>
-                <img src="{{ url_for('static', filename='errado.jpg') }}" class="rounded" height="15" width="15">
+                  <font color="red">{{ erro_senha }}</font>
+                  <img src="{{ url_for('static', filename='errado.jpg') }}" class="rounded" height="15" width="15">
                 {% endif %}
               </div>
               <br>
@@ -45,8 +53,8 @@
                 <label for="nome">Confirmar Senha</label>
                 <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" style="width: 15rem;" required>
                 {% if erro_senha %}
-                <font color="red">{{ erro_senha }}</font>
-                <img src="{{ url_for('static', filename='errado.jpg') }}" class="rounded" height="15" width="15">
+                  <font color="red">{{ erro_senha }}</font>
+                  <img src="{{ url_for('static', filename='errado.jpg') }}" class="rounded" height="15" width="15">
                 {% endif %}
               </div>
               <br>

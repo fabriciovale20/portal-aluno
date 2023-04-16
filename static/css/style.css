@@ -40,3 +40,21 @@ h1 {
     background-size: cover;
     position: relative;
 }
+
+.profile-img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: gray; /* substitua pela imagem real */
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-name {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 24px;
+}

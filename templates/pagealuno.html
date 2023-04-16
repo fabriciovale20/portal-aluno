@@ -18,39 +18,45 @@
       <form action="/prova" method="POST" id="form-cadastrar">
         <div class="card-header"><strong>Área do Aluno</strong></div>
         <div class="card-body">
-            <br>
-            <h2>Olá, {{ nome_aluno }}!</h2>
-            <br>
-            <p class="card-text">
+          <div>
+            {% if sexo_aluno == 'Masculino' %}
+              <div class="profile-img" style="background-image: url('./static/masculino.png')"></div>
+            {% else %}
+              <div class="profile-img" style="background-image: url('./static/feminino.png')"></div>
+            {% endif %}
+              <h2 class="profile-name">Olá, {{ nome_aluno }}!</h2>
+          </div>
+          <br>
+          <p class="card-text">
+            <div class="form-check">
+              <p>
+                <label for="nome">Deseja realizar sua avaliação?</label>
+              </p>
               <div class="form-check">
-                <p>
-                  <label for="nome">Deseja realizar sua avaliação?</label>
-                </p>
-                <div class="form-check">
-                  <label for="nome">Selecione abaixo a disciplina que deseja realizar à avaliação:</label>
-                  <select class="form-select" aria-label="Default select example" style="width: 15rem;" id="prova" name="prova">
-                    {% for prova in provas_disponiveis %}
-                      <option  id="prova" name="prova" value="{{ prova[1] }}">{{ prova[1] }}</option>
-                    {% endfor %}
-                  </select>
-                  <br>
-                  <div class="bts"></div>
-                    <div>
-                      <p>
-                        <button type="submit" class="btn btn-success" form="form-cadastrar">Fazer prova</button>
-                      </p>
-                    </div>
-                    <div>
-                      <p>
-                        <td><a href='/atualizarusuario/{{ id_aluno }}' class="btn btn-info">Alterar cadastro</a></td> <!-- Botão de Alterar Senha -->
-                      </p>
-                    </div>
-                    <div>
-                      <a href="/" class="btn btn-danger">Sair</a>
-                  </div>
+                <label for="nome">Selecione abaixo a disciplina que deseja realizar à avaliação:</label>
+                <select class="form-select" aria-label="Default select example" style="width: 15rem;" id="prova" name="prova">
+                  {% for prova in provas_disponiveis %}
+                    <option  id="prova" name="prova" value="{{ prova[1] }}">{{ prova[1] }}</option>
+                  {% endfor %}
+                </select>
+                <br>
+                <div class="bts"></div>
+                <div>
+                  <p>
+                    <button type="submit" class="btn btn-success" form="form-cadastrar">Fazer prova</button>
+                  </p>
                 </div>
+                <div>
+                  <p>
+                    <td><a href='/atualizarusuario/{{ id_aluno }}' class="btn btn-info">Alterar cadastro</a></td> <!-- Botão de Alterar Senha -->
+                  </p>
+                </div>
+              <div>
+                <a href="/" class="btn btn-danger">Sair</a>
               </div>
-            </p>
+            </div>
+            </div>
+          </p>
           </div>
         </div>
       </form>

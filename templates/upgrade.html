@@ -28,25 +28,33 @@
               </div>
               <br>
               <div class="form-check">
+                <label for="nome">Sexo</label>
+                <select class="form-select" aria-label="Default select example" style="width: 15rem;" id="sexo" name="sexo">
+                  <option id="sexo" name="sexo" value="Masculino">Masculino</option>
+                  <option id="sexo" name="sexo" value="Feminino">Feminino</option>
+                </select>
+              </div>
+              <br>
+              <div class="form-check">
                 <label for="nome">Usuário</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" style="width: 15rem;" value='{{ aluno[2] }}' required>
+                <input type="text" class="form-control" id="usuario" name="usuario" style="width: 15rem;" value='{{ aluno[3] }}' required>
               </div>
               <br>
               <div class="form-check">
                 <label for="nome">Senha</label>
-                <input type="password" class="form-control" id="senha" name="senha" style="width: 15rem;" value='{{ aluno[3] }}' required>
+                <input type="password" class="form-control" id="senha" name="senha" style="width: 15rem;" value='{{ aluno[4] }}' required>
               </div>
               <br>
               <div class="form-check">
                 <label for="nome">E-mail</label>
-                <input type="email" class="form-control" id="email" name="email" style="width: 15rem;" value='{{ aluno[4] }}' required>
+                <input type="email" class="form-control" id="email" name="email" style="width: 15rem;" value='{{ aluno[5] }}' required>
               </div>
               <br>
               <div class="form-check">
                 <label for="nome">Tipo</label>
                 <select class="form-select" aria-label="Default select example" style="width: 15rem;" id="tipo" name="tipo">
-                  <option  id="tipo" name="tipo" value="Aluno">Aluno</option>
-                  <option  id="tipo" name="tipo" value="Administrador">Administrador</option>
+                  <option id="tipo" name="tipo" value="Aluno">Aluno</option>
+                  <option id="tipo" name="tipo" value="Administrador">Administrador</option>
                 </select>
               </div>
             </p>
