@@ -10,8 +10,7 @@ Ferramentas:
 
 Bibliotecas:
 - Gunicorn
-- mysql.connector
-- psycopg2 (Conecta o Python com o Postgres)
+- psycopg2
 
 Framework:
 - Flask
@@ -21,11 +20,4 @@ Outros:
 - CSS
 - BootStrap
 
-Banco de Dados FLY.IO
-- Postgres cluster db-app created
-    Username:    postgres
-    Password:    34P2xLogKeI1kg4
-    Hostname:    db-app.internal
-    Proxy port:  5432
-    Postgres port:  5433
-    Connection string: postgres://postgres:34P2xLogKeI1kg4@db-app.internal:5432
+Link do site: https://portal-aluno-app.up.railway.app
