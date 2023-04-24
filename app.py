@@ -168,8 +168,8 @@ def esqueceusenha():
                 message = f'''Olá {nome_atual}!\nEsqueceu sua senha?\n\n Estamos aqui para lhe ajudar.\n\n Sua senha é: {senha_atual}'''
 
                 # Credenciais e assunto do E-mail
-                password = "pttoqroxvpeviwot"
-                msg['From'] = 'fabriciovale18@gmail.com'
+                password = "" # Senha da api do E-mail
+                msg['From'] = '' # E-mail
                 msg['To'] = f'{recuperar_senha}'
                 msg['Subject'] = 'Recuperação de Senha APP UNIASSELVI' # Assunto do E-mail
 
