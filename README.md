@@ -19,5 +19,3 @@ Outros:
 - HTML
 - CSS
 - BootStrap
-
-Link do site: https://portal-aluno-app.up.railway.app
