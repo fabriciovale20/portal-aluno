@@ -3,10 +3,11 @@
 ## Cadastro de Alunos UNIASSELVI
 
 Ferramentas:
-- Python (Versão 3.10.4)
-- Git (Sistema de Controle)
-- VSCode (IDE)
-- MySQL (Servidor local)
+- Python
+- Postgres (Banco de Dados)
+- HTML
+- CSS
+- BootStrap
 
 Bibliotecas:
 - Gunicorn
@@ -14,11 +15,6 @@ Bibliotecas:
 
 Framework:
 - Flask
-
-Outros:
-- HTML
-- CSS
-- BootStrap
 
 # Acesso do Aluno
 https://user-images.githubusercontent.com/73182618/235307884-aaeef1e6-2047-4d87-bc5b-310d6387c60e.mp4
