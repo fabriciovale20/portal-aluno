@@ -21,10 +21,16 @@ Outros:
 - BootStrap
 
 # Página Inicial
-![alt text](portal-aluno.png)
+![alt text](/static/portal-aluno.png)
 
 # Página Administrador
-![alt text](acesso-adm.png)
+![alt text](/static/acesso-adm.png)
 
 # Página do Aluno
-![alt text](acesso-aluno.png)
+![alt text](/static/acesso-aluno.png)
+
+# Acesso do Aluno
+https://user-images.githubusercontent.com/73182618/235307197-32d86f46-0a2d-414c-bb3f-9c7297038969.mp4
+
+# Acesso do Administrador
+https://user-images.githubusercontent.com/73182618/235307775-a26a7dcc-b4ee-41da-a280-d95f16e2b769.mp4
