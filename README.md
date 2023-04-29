@@ -1,6 +1,6 @@
 # Aplicação Web
 
-## Cadastro de Alunos UNIASSELVI
+## Portal do Aluno UNIASSELVI
 
 Ferramentas:
 - Python
@@ -21,3 +21,4 @@ https://user-images.githubusercontent.com/73182618/235307884-aaeef1e6-2047-4d87-
 
 # Acesso do Administrador
 https://user-images.githubusercontent.com/73182618/235307775-a26a7dcc-b4ee-41da-a280-d95f16e2b769.mp4
+
