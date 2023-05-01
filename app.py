@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect
-import mysql.connector
+import logging
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
@@ -28,6 +28,9 @@ conexao = psycopg2.connect(
 
 cursor = conexao.cursor()
 
+# CONFIGURAÇÃO PARA REGISTRAR OS LOGS
+logging.basicConfig(level=logging.INFO, filename='registro_logs.log', format='%(asctime)s - %(levelname)s - %(message)s')
+
 ####### PÁGINA LOGIN #######
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -37,8 +40,7 @@ def home():
     if request.method == 'POST':
         usuario = request.form.get('usuario')
         senha = request.form.get('senha')
-        print(usuario)
-        print(senha)
+        logging.info('Pagina: HOME Acao: incluso usuario e senha')
     else:
         usuario = None
         senha = None
@@ -75,17 +77,19 @@ def home():
                 tipo_aluno = user[7]
 
                 if tipo_aluno == 'Administrador': # Acesso adiministrador
+                    logging.info(f'Pagina: HOME Usuario: {usuario} Acao: login Administrador realizado com sucesso!')
                     return render_template('pageadmin.html', lista_alunos=lista_alunos, lista_avaliacoes=lista_avaliacoes, lista_provas=lista_provas)
                 else: # Caso o login for válido, será redirecionado para a página de aluno
-                    # primeiro_nome = nome_aluno[:nome_aluno.find(' '):] # Para pegar apenas o primeiro nome do aluno
-
+                    logging.info(f'Pagina: HOME usuario: {usuario} Acao: login Aluno realizado com sucesso!')
                     return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, sexo_aluno=sexo_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, email_aluno=email_aluno, tipo_aluno=tipo_aluno, provas_disponiveis=provas_disponiveis)
         else: # Caso o Usuário e Senha não possuam no Banco de Dados é retornado a mensagem de Login inválido
             incorreto = True
             msg = 'Login inválido, tente novamente!'
+            logging.info(f'Pagina: HOME Usuario tentado: {usuario} Acao: login inválido')
             return render_template('home.html', incorreto=incorreto, msg=msg)
 
     # Acessando a página pela primeira vez
+    logging.info('Pagina: HOME Acao: pagina aberta')
     return render_template('home.html')
 
 ####### OPÇÃO REGISTRAR-SE #######
@@ -116,7 +120,7 @@ def registrarse():
         # Validando se a senhas conferem
         if senha_registrar != confirmar_senha_registrar:
             erro_senha = 'As senhas não são iguais.'
-            print(f'Erro Senha: {erro_senha}')
+            logging.error('Pagina: REGISTRAR Acao: senhas diferentes')
 
             return render_template('registrarse.html', erro_senha=erro_senha)
 
@@ -125,13 +129,13 @@ def registrarse():
             # Validando se o usuário já está sendo utilizado
                 if usuario_registrar == user[3]:
                     erro_usuario = 'Usuário já utilizado'
-                    print(f'Erro Usuário: {erro_usuario}')
+                    logging.error('Pagina: REGISTRAR Acao: usuario ja utilizado')
 
                     return render_template('registrarse.html', erro_usuario=erro_usuario)
                 # Validando se o E-mail já está sendo utilizado
                 elif email_registrar in user[5]:
                     erro_email = 'E-mail já utilizado'
-                    print(f'Erro E-mail: {erro_email}')
+                    logging.error('Pagina: REGISTRAR Acao: email ja utilizado')
 
                     return render_template('registrarse.html', erro_email=erro_email)
 
@@ -141,9 +145,11 @@ def registrarse():
             '{data_registro_registrar}','{tipo_registro}');"""
         cursor.execute(comando)
         conexao.commit()
+        logging.info('Pagina: REGISTRAR Acao: usuario cadastrado com sucesso')
 
         return redirect('/')
     else:
+        logging.info('Pagina: REGISTRAR Acao: pagina aberta')
         return render_template('registrarse.html', lista_alunos=lista_alunos)
 
 ####### OPÇÃO ESQUECEU SENHA #######
@@ -257,6 +263,7 @@ def atualizarusuario(id):
         comando = f"""UPDATE aluno SET nome = '{att_nome}', sexo = '{att_sexo}', usuario = '{att_usuario}', senha = '{att_senha}', email = '{att_email}', tipo = '{att_tipo}' WHERE id = {id};"""
         cursor.execute(comando)
         conexao.commit()
+        logging.info('Pagina: ATUALIZAR Acao: atualizao realizada com sucesso')
         
         if tipo_aluno == 'Administrador':
             return redirect('/pageadmin')
@@ -264,16 +271,26 @@ def atualizarusuario(id):
             return redirect('/pagealuno')
     else: # Caso o method for GET. GET é quando o usuário realiza apenas consulta (Query) no Banco de Dados
         if tipo_aluno == 'Administrador':
+            logging.info('Pagina: ATUALIZAR Acao: pagina atualizar administrado aberta')
             return render_template('upgrade.html', aluno=aluno)
         elif tipo_aluno == 'Aluno':
+            logging.info('Pagina: ATUALIZAR Acao: pagina atualizar aluno aberta')
             return render_template('upgradealuno.html', aluno=aluno)
 
 # DELETAR
 @app.route('/deletarusuario/<int:id>') # Exclusão é realizado com a coleta do ID do cadastro
 def deletarusuario(id):
+    # Coletando o usuário que foi excluído para inserir no log de registros
+    comando = f'SELECT usuario FROM aluno WHERE id = {id};'
+    cursor.execute(comando)
+    usuario_deletado = cursor.fetchall()
+
+    # Deletando o usuário selecionado
     comando = f'DELETE FROM aluno WHERE id = {id};'
     cursor.execute(comando)
     conexao.commit()
+
+    logging.info(f'Pagina: PAGEADMIN Usuario: {usuario} Acao: usuario deletado = {usuario_deletado[0]}')
 
     return redirect('/pageadmin') # Redirecionado para a Página Inicial
 
@@ -289,7 +306,6 @@ def atualizaravaliacao(id):
     for id_avaliacao in lista_avaliacao:
         if id == id_avaliacao[0]:
             avaliacao = id_avaliacao
-            print(avaliacao)
 
     # Condição IF para redirecionar para a página correta.
     if request.method == 'POST': # POST é quando o usuário solicita ao Banco de Dados que seja alterado alguma informação por meio da requisição do formulário
@@ -307,14 +323,17 @@ def atualizaravaliacao(id):
             nota_final = 0
 
         # Atualizando informações no Banco de Dados
-        print('Atualizando...')
         comando = f"""UPDATE avaliacao SET nota1 = '{att_nota1}', nota2 = '{att_nota2}', nota_final = '{nota_final}' WHERE id = {id};"""
         cursor.execute(comando)
         conexao.commit()
-        
+
+        logging.info(f'Pagina: HISTORICO AVALIACAO Usuario: {usuario} Acao: alteracao de nota')
+
         return redirect('/pageadmin')
 
     else: # Caso o method for GET. GET é quando o usuário realiza apenas consulta (Query) no Banco de Dados
+        logging.info(f'Pagina: HISTORICO AVALIACAO Usuario: {usuario} Acao: pagina aberta')
+        
         return render_template('alteraravaliacao.html', avaliacao=avaliacao)
 
 # DELETAR
@@ -323,6 +342,8 @@ def deletaravaliacao(id):
     comando = f'DELETE FROM avaliacao WHERE id = {id};'
     cursor.execute(comando)
     conexao.commit()
+
+    logging.info(f'Pagina: HISTORICO AVALIACAO Usuario: {usuario} Acao: avalicao deletada com sucesso')
 
     return redirect('/pageadmin') # Redirecionado para a Página Inicial
 
@@ -342,6 +363,8 @@ def prova():
         if prova[1] == disciplina_selecionada:
             resposta1 = prova[7]
             resposta2 = prova[13]
+
+            logging.info(f'Pagina: AVALIACAO Usuario: {usuario} Acao: prova da disciplina {disciplina_selecionada} encontrada com sucesso')
 
             return render_template('prova.html', prova=prova)
 
@@ -378,7 +401,12 @@ def finalizarprova():
         cursor.execute(comando)
         conexao.commit()
 
+        logging.info(f'Pagina: AVALICAO Usuario: {usuario} Acao: prova finalizada com sucesso')
+
+
     home()
+
+    logging.info(f'Pagina: AVALIACAO Usuario: {usuario} Acao: prova {disciplina_selecionada} gerada com sucesso')
 
     return render_template('pagealuno.html', id_aluno=id_aluno, nome_aluno=nome_aluno, sexo_aluno=sexo_aluno, usuario_aluno=usuario_aluno, senha_aluno=senha_aluno, email_aluno=email_aluno, tipo_aluno=tipo_aluno, provas_disponiveis=provas_disponiveis)
 
@@ -412,8 +440,12 @@ def cadastrarprova():
         cursor.execute(comando)
         conexao.commit()
 
+        logging.info(f'Pagina: CADASTRO PROVA Usuario: {usuario} Acao: prova da disciplina {disciplina} cadastrada com sucesso')
+
         return redirect('/pageadmin')
     else: # Caso o method for GET. GET é quando o usuário realiza apenas consulta (Query) no Banco de Dados
+        logging.info(f'Pagina: CADASTRO PROVA Usuario: {usuario} Acao: pagina aberta')
+
         return render_template('cadastrarprova.html')
 
 # ATUALIZAR
@@ -455,16 +487,28 @@ def atualizarprova(id):
         cursor.execute(comando)
         conexao.commit()
 
+        logging.info(f'Pagina: ATUALIZAR PROVA Usuario: {usuario} Acao: prova da disciplina {att_disciplina} atualizada com sucesso')
+
         return redirect('/pageadmin')
     else: # Caso o method for GET. GET é quando o usuário realiza apenas consulta (Query) no Banco de Dados
+        logging.info(f'Pagina: ATUALIZAR PROVA Usuario: {usuario} Acao: pagina aberta')
+
         return render_template('alterarprova.html', prova=prova)
 
 # DELETAR
 @app.route('/deletarprova/<int:id>') # Exclusão é realizado com a coleta do ID do cadastro
 def deletarprova(id):
+    # Coletando o usuário que foi excluído para inserir no log de registros
+    comando = f'SELECT disciplina FROM prova WHERE id = {id};'
+    cursor.execute(comando)
+    prova_deletado = cursor.fetchall()
+
+    # Deletando o prova selecionado
     comando = f'DELETE FROM prova WHERE id = {id};'
     cursor.execute(comando)
     conexao.commit()
+
+    logging.info(f'Pagina: PAGEADMIN Usuario: {usuario} Acao: prova deletada = {prova_deletado[0]}')
 
     return redirect('/pageadmin') # Redirecionado para a Página Inicial
 
