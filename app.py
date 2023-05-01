@@ -5,26 +5,27 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 import psycopg2
+import mysql.connector
 import keybd as key
 
 app = Flask(__name__) # Inicialização da Aplicação WEB
 
 # BANCO DE DADOS MYSQL LOCAL
-# conexao = mysql.connector.connect(
-#     host='localhost',
-#     user='root',
-#     password='passwordsql',
-#     database='app_uniasselvi'
-# )
-
-# BANCO DE DADOS POSTGRESQL
-conexao = psycopg2.connect(
+conexao = mysql.connector.connect(
     host = key.KEYHOST,
-    port = key.KEYPORT,
     user = key.KEYUSER,
     password = key.KEYPASSWORD,
     database = key.KEYDATABASE,
 )
+
+# BANCO DE DADOS POSTGRESQL
+# conexao = psycopg2.connect(
+#     host = key.KEYHOST,
+#     port = key.KEYPORT,
+#     user = key.KEYUSER,
+#     password = key.KEYPASSWORD,
+#     database = key.KEYDATABASE,
+# )
 
 cursor = conexao.cursor()
 
@@ -85,7 +86,7 @@ def home():
         else: # Caso o Usuário e Senha não possuam no Banco de Dados é retornado a mensagem de Login inválido
             incorreto = True
             msg = 'Login inválido, tente novamente!'
-            logging.info(f'Pagina: HOME Usuario tentado: {usuario} Acao: login inválido')
+            logging.info(f'Pagina: HOME Usuario tentado: {usuario} Acao: login invalido')
             return render_template('home.html', incorreto=incorreto, msg=msg)
 
     # Acessando a página pela primeira vez

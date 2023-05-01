@@ -74,6 +74,7 @@
       <table class="table table-hover table-dark">
         <thead class="table-dark">
           <tr>
+            <th scope="col">ID</th>
             <th scope="col">Aluno</th>
             <th scope="col">Hora da Avaliação</th>
             <th scope="col">Disciplina</th>
@@ -88,7 +89,8 @@
           <div>
               {% for avaliacao in lista_avaliacoes %}
                   <tr>
-                      <th scope="row">{{ avaliacao[1] }} </th> <!-- Aluno -->
+                      <th scope="row">{{ avaliacao[0] }} </th> <!-- ID -->
+                      <td>{{ avaliacao[1] }}</td> <!-- Aluno -->
                       <td>{{ avaliacao[2] }}</td> <!-- Hora da Avaliação -->
                       <td>{{ avaliacao[3] }}</td> <!-- Disciplina -->
 
